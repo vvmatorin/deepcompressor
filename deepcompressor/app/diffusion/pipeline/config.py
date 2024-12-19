@@ -312,7 +312,7 @@ class DiffusionPipelineConfig:
             pipeline = PixArtSigmaPipeline.from_pretrained("PixArt-alpha/PixArt-Sigma-XL-2-1024-MS", torch_dtype=dtype)
         elif name == "flux.1-dev":
             pipeline = FluxPipeline.from_pretrained("black-forest-labs/FLUX.1-dev", torch_dtype=dtype)
-        elif name == "flux.1-dev":
+        elif name == "flux.1-lite":
             pipeline = FluxPipeline.from_pretrained("Freepik/flux.1-lite-8B-alpha", torch_dtype=dtype)
         elif name == "flux.1-schnell":
             pipeline = FluxPipeline.from_pretrained("black-forest-labs/FLUX.1-schnell", torch_dtype=dtype)
