@@ -262,8 +262,8 @@ class DiffusionPipelineConfig:
                                 ).to(device=device, dtype=dtype)
                                 branch_hook.branch.a.weight.data[: a.shape[0], :] = a
                                 branch_hook.branch.b.weight.data[:, : b.shape[1]] = b
-                                branch_hook.branch.a.weight.data[a.shape[0] :, :] = _a
-                                branch_hook.branch.b.weight.data[:, b.shape[1] :] = _b
+                                branch_hook.branch.a.weight.data[a.shape[0]:, :] = _a
+                                branch_hook.branch.b.weight.data[:, b.shape[1]:] = _b
                             else:
                                 logger.debug("- create a new LoRA branch")
                                 branch = LowRankBranch(
@@ -312,6 +312,8 @@ class DiffusionPipelineConfig:
             pipeline = PixArtSigmaPipeline.from_pretrained("PixArt-alpha/PixArt-Sigma-XL-2-1024-MS", torch_dtype=dtype)
         elif name == "flux.1-dev":
             pipeline = FluxPipeline.from_pretrained("black-forest-labs/FLUX.1-dev", torch_dtype=dtype)
+        elif name == "flux.1-dev":
+            pipeline = FluxPipeline.from_pretrained("Freepik/flux.1-lite-8B-alpha", torch_dtype=dtype)
         elif name == "flux.1-schnell":
             pipeline = FluxPipeline.from_pretrained("black-forest-labs/FLUX.1-schnell", torch_dtype=dtype)
         else:
@@ -351,10 +353,10 @@ class DiffusionPipelineConfig:
 
 
 DiffusionPipelineConfig.register_pipeline_factory(
-    ("sdxl", "sdxl-turbo", "pixart-sigma", "flux.1-dev", "flux.1-schnell"), DiffusionPipelineConfig._default_build
-)
+    ("sdxl", "sdxl-turbo", "pixart-sigma", "flux.1-dev", "flux.1-lite", "flux.1-schnell"),
+    DiffusionPipelineConfig._default_build)
 
 DiffusionPipelineConfig.register_text_extractor(
-    ("sdxl", "sdxl-turbo", "pixart-sigma", "flux.1-dev", "flux.1-schnell"),
+    ("sdxl", "sdxl-turbo", "pixart-sigma", "flux.1-dev", "flux.1-lite", "flux.1-schnell"),
     DiffusionPipelineConfig._default_extract_text_encoders,
 )
